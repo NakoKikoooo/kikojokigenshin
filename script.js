@@ -43,6 +43,12 @@ const servicePrices = {
         // LAYANAN BARU: QUEST LUNA
         { name: "Quest Luna", desc: "Pengerjaan Quest Luna .", price: "Rp20.000" }, 
         { name: "Quest Aranyaka", desc: "Per Jurnal petualangan hutan.", price: "Rp20.000" },
+         { name: "Kisah kesukuan", desc: "Quest Suku Mata Air.", price: "Rp20.000" },
+{ name: "Kisah kesukuan", desc: "Quest Suku Tirai daun.", price: "Rp20.000" },
+{ name: "Kisah kesukuan", desc: "Quest Suku Putra-Putri Gema.", price: "Rp25.000" },
+{ name: "Kisah kesukuan", desc: "Quest Suku Bunga Bersayap.", price: "Rp25.000" },
+{ name: "Kisah kesukuan", desc: "Quest Suku Penguasa Angin Malam.", price: "Rp25.000" },
+{ name: "Kisah kesukuan", desc: " Quest Suku Berlimpah Jaya.", price: "Rp25.000" },
     ],
     // -------------------------------------------------------------
     // 5. FARMING MATERIAL - Ikon AETHER
