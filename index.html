@@ -124,23 +124,8 @@
         </section>
 
         <section id="formulir">
-            <h2>Formulir Pemesanan Joki</h2>
-            
             <form id="joki-form" action="https://formspree.io/f/meoywndl" method="POST">
-                <div>
-                    <label for="nama">Nama Anda:</label>
-                    <input type="text" id="nama" name="nama" placeholder="Contoh: Traveler / Aether" required>
-                </div>
-
-                <h3>Pilih Metode Kontak Utama (Wajib):</h3>
-                <div style="margin-bottom: 15px;">
-                    <input type="radio" id="pilih_wa" name="metode_kontak" value="whatsapp" required>
-                    <label for="pilih_wa">Nomor WhatsApp</label>
-                    
-                    <input type="radio" id="pilih_discord" name="metode_kontak" value="discord">
-                    <label for="pilih_discord">Nama/ID Discord</label>
-                </div>
-
+                
                 <div id="input-wa" style="display: none;">
                     <label for="whatsapp">Nomor WhatsApp Aktif:</label>
                     <input type="text" id="whatsapp" name="whatsapp" placeholder="Contoh: +62812xxxxxx">
@@ -149,16 +134,6 @@
                 <div id="input-discord" style="display: none;">
                     <label for="discord">Nama/ID Discord:</label>
                     <input type="text" id="discord" name="discord" placeholder="Contoh: NamaAnda#1234">
-                </div>
-
-                <div>
-                    <label for="server">Server Genshin:</label>
-                    <select id="server" name="server" required>
-                        <option value="Asia">Asia</option>
-                        <option value="Europe">Europe</option>
-                        <option value="America">America</option>
-                        <option value="TW/HK/MO">TW/HK/MO</option>
-                    </select>
                 </div>
 
                 <div>
