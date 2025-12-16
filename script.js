@@ -14,42 +14,42 @@ const servicePrices = {
     // 2. EKSPLORASI MAP - Ikon GANYU (Harga Per Wilayah)
     // -------------------------------------------------------------
     eksplorasi: [
-        { name: "Explore Map: Mondstad", desc: "Eksplorasi Map wilayah Mondstad (Full Chest/Seelie).", price: "8K" },
-        { name: "Explore Map: Dragonspine", desc: "Eksplorasi Map wilayah Dragonspine (Full Chest/Seelie).", price: "15K" },
-        { name: "Explore Map: Liyue", desc: "Eksplorasi Map wilayah Liyue (Full Chest/Seelie).", price: "20K" },
-        { name: "Explore Map: Inazuma", desc: "Eksplorasi Map wilayah Inazuma (Full Chest/Seelie).", price: "20K" },
-        { name: "Explore Map: Sumeru", desc: "Eksplorasi Map wilayah Sumeru (Full Chest/Seelie).", price: "35K" },
-        { name: "Explore Map: Fontaine", desc: "Eksplorasi Map wilayah Fontaine (Full Chest/Seelie).", price: "25K" },
-        { name: "Explore Map: Natlan", desc: "Eksplorasi Map wilayah Natlan (Full Chest/Seelie).", price: "20K" },
-        { name: "Explore Map: Nodkrai", desc: "Eksplorasi Map wilayah Nodkrai (Full Chest/Seelie).", price: "15K" },
+        { name: "Explore Map: Mondstad", desc: "Eksplorasi Map wilayah Mondstad (Full Chest/Seelie).", price: "Rp8.000" },
+        { name: "Explore Map: Dragonspine", desc: "Eksplorasi Map wilayah Dragonspine (Full Chest/Seelie).", price: "Rp15.000" },
+        { name: "Explore Map: Liyue", desc: "Eksplorasi Map wilayah Liyue (Full Chest/Seelie).", price: "Rp20.000" },
+        { name: "Explore Map: Inazuma", desc: "Eksplorasi Map wilayah Inazuma (Full Chest/Seelie).", price: "Rp20.000" },
+        { name: "Explore Map: Sumeru", desc: "Eksplorasi Map wilayah Sumeru (Full Chest/Seelie).", price: "Rp35.000" },
+        { name: "Explore Map: Fontaine", desc: "Eksplorasi Map wilayah Fontaine (Full Chest/Seelie).", price: "Rp25.000" },
+        { name: "Explore Map: Natlan", desc: "Eksplorasi Map wilayah Natlan (Full Chest/Seelie).", price: "Rp20.000" },
+        { name: "Explore Map: Nodkrai", desc: "Eksplorasi Map wilayah Nodkrai (Full Chest/Seelie).", price: "Rp15.000" },
         { name: "Open Teleport", desc: "Membuka semua titik Teleport di Map.", price: "Rp500" }
     ],
     // -------------------------------------------------------------
     // 3. DAILY COMMISION HARIAN - Ikon XIAO
     // -------------------------------------------------------------
     daily: [
-        { name: "Rawat Akun (1 Bulan)", desc: "Perawatan akun penuh selama 1 bulan.", price: "20K" },
-        { name: "Rawat Akun (1 Minggu)", desc: "Perawatan akun penuh selama 1 minggu.", price: "10K" },
-        { name: "Rawat Akun (1 Hari)", desc: "Perawatan akun penuh selama 1 hari.", price: "2K" }
+        { name: "Rawat Akun (1 Bulan)", desc: "Perawatan akun penuh selama 1 bulan.", price: "Rp20.000" },
+        { name: "Rawat Akun (1 Minggu)", desc: "Perawatan akun penuh selama 1 minggu.", price: "Rp10.000" },
+        { name: "Rawat Akun (1 Hari)", desc: "Perawatan akun penuh selama 1 hari.", price: "Rp2.000" }
     ],
     // -------------------------------------------------------------
     // 4. JOKI QUEST - Ikon HU TAO (Quest Luna Ditambahkan di Sini)
     // -------------------------------------------------------------
     jokiquest: [
-        { name: "Archon Quest", desc: "Penyelesaian Archon Quest.", price: "10K" },
-        { name: "World Quest", desc: "Penyelesaian World Quest.", price: "8K" },
-        { name: "Event Besar", desc: "Pengerjaan Event Besar / Misi Utama.", price: "25K" },
-        { name: "Event Kecil", desc: "Pengerjaan Event Kecil / Misi Harian.", price: "10K" },
+        { name: "Archon Quest", desc: "Penyelesaian Archon Quest.", price: "Rp10.000" },
+        { name: "World Quest", desc: "Penyelesaian World Quest.", price: "Rp8.000" },
+        { name: "Event Besar", desc: "Pengerjaan Event Besar / Misi Utama.", price: "Rp25.000" },
+        { name: "Event Kecil", desc: "Pengerjaan Event Kecil / Misi Harian.", price: "Rp10.000" },
         // LAYANAN BARU: QUEST LUNA
-        { name: "Quest Luna", desc: "Pengerjaan Quest Luna .", price: "20K" }, 
+        { name: "Quest Luna", desc: "Pengerjaan Quest Luna .", price: "Rp20.000" }, 
     ],
     // -------------------------------------------------------------
     // 5. FARMING MATERIAL - Ikon AETHER
     // -------------------------------------------------------------
     farming: [
-        { name: "Material Ascending (50pcs)", desc: "Farming material ascending hingga 50 buah.", price: "2K" },
-        { name: "Bebatuan (50pcs)", desc: "Farming Bebatuan (ore) hingga 50 buah.", price: "2K" },
-        { name: "Weapon Mancing / Refine", desc: "Farming untuk senjata pancing atau refine.", price: "2K / refine" }
+        { name: "Material Ascending (50pcs)", desc: "Farming material ascending hingga 50 buah.", price: "Rp2.000" },
+        { name: "Bebatuan (50pcs)", desc: "Farming Bebatuan (ore) hingga 50 buah.", price: "Rp2.000" },
+        { name: "Weapon Mancing / Refine", desc: "Farming untuk senjata pancing atau refine.", price: "Rp2.000 / refine" }
     ],
 };
 
