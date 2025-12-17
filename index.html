@@ -5,6 +5,63 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>KIKO JOKI GENSHIN | Tingkatkan Akun Anda</title>
     <link rel="stylesheet" href="styles.css"> 
+    <style>
+        /* CSS Khusus Fitur Antrian */
+        .antrean-section {
+            background: #fff;
+            padding: 30px;
+            border-radius: 15px;
+            text-align: center;
+            margin: 20px 0;
+            border: 2px solid #7289da;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+        }
+        .nomor-box {
+            font-size: 5rem;
+            font-weight: bold;
+            color: #e74c3c;
+            margin: 10px 0;
+            line-height: 1.2;
+        }
+        .btn-antri {
+            background-color: #25d366;
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            font-size: 1.2rem;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            width: 100%;
+            max-width: 300px;
+        }
+        .btn-antri:disabled {
+            background-color: #bdc3c7 !important;
+            cursor: not-allowed;
+        }
+        .btn-antri:hover:not(:disabled) {
+            background-color: #1ebd5b;
+            transform: scale(1.05);
+        }
+        .reset-link {
+            display: inline-block;
+            margin-top: 20px;
+            font-size: 0.85rem;
+            color: #7289da;
+            text-decoration: underline;
+            cursor: pointer;
+        }
+        .gratis-text {
+            color: #e74c3c;
+            font-weight: bold;
+        }
+        #infoAntrean {
+            margin-top: 15px;
+            font-weight: bold;
+            color: #2c3e50;
+        }
+    </style>
 </head>
 <body>
     
@@ -14,7 +71,8 @@
             <nav>
                 <ul>
                     <li><a href="#layanan-harga">Layanan & Harga</a></li> 
-                    </ul>
+                    <li><a href="#antrean">Cek Antrian</a></li> 
+                </ul>
             </nav>
         </div>
     </header>
@@ -25,17 +83,28 @@
                 <p class="tagline">Jasa Joki Terbaik dan Terpercaya</p>
                 <h1>Tingkatkan Akun Anda Sekarang!</h1>
                 <p>Cepat, Aman, dengan Harga Terjangkau untuk semua kebutuhan Anda.</p>
-                </div>
+            </div>
         </div>
     </div>
 
     <div class="container"> 
         
+        <section id="antrean" class="antrean-section">
+            <h2>Sistem Antrian Joki <span class="gratis-text">Gratis</span></h2>
+            <p>Nomor Antrian Terakhir Saat Ini:</p>
+            <div class="nomor-box" id="displayAntrean">--</div>
+            
+            <button class="btn-antri" id="btnAmbil" onclick="ambilAntrean()">AMBIL NOMOR ANTRIAN</button>
+            
+            <p id="infoAntrean"></p>
+            <p id="infoWaktu" style="font-size: 0.8rem; color: #666;"></p>
+            <span class="reset-link" onclick="resetAntrean()">Batal / Ambil Nomor Baru</span>
+        </section>
+
         <section id="layanan-harga">
             <h2>Layanan Kami (Klik Ikon untuk Lihat Harga)</h2>
             
             <div class="service-list">
-                
                 <div class="service-item-wrapper" id="wrapper-spyrall">
                     <div class="service-item" data-service-id="spyrall">
                         <img src="amber-icon.png" alt="Ikon Amber" class="service-icon">
@@ -119,20 +188,94 @@
             
             <p style="text-align: center; margin-top: 20px; color: #e74c3c; font-weight: 600;">*Harga dapat disesuaikan tergantung kompleksitas dan *progress* akun Anda.</p>
 
-   <section id="kontak">
-            <h2>Anda bisa menghubungi saya untuk order jokian</h2>
-            <p>© 2025 KIKO JOKI GENSHIN. Layanan Joki Terpercaya.</p>
-            <p>
-                Hubungi saya: 
-                <a href="https://wa.me/6282230412413" target="_blank" style="color: #25d366; font-weight: bold; text-decoration: none;">WhatsApp</a> | 
-                <a href="https://discord.gg/4Cd8QhuYXH" target="_blank" style="color: #7289da; font-weight: bold; text-decoration: none;">Discord</a>
-            </p>
-        </section>
-    </div> 
+            <section id="kontak">
+                <h2>Anda bisa menghubungi saya untuk order jokian</h2>
+                <p>© 2025 KIKO JOKI GENSHIN. Layanan Joki Terpercaya.</p>
+                <p>
+                    Hubungi saya: 
+                    <button onclick="orderWA()" style="background: #25d366; color: white; border: none; padding: 10px 15px; border-radius: 5px; cursor: pointer; font-weight: bold; font-size: 1rem;">WhatsApp</button> | 
+                    <a href="https://discord.gg/4Cd8QhuYXH" target="_blank" style="color: #7289da; font-weight: bold; text-decoration: none;">Discord</a>
+                </p>
+            </section>
+        </section> 
+    </div>
+
     <footer>
         <p>Terima kasih telah menggunakan jasa kami. Kami akan segera memproses pesanan Anda!</p>
     </footer>
 
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
+
+    <script>
+        // 1. Konfigurasi Firebase (Database Realtime)
+        const firebaseConfig = {
+            databaseURL: "https://kiko-joki-default-rtdb.asia-southeast1.firebasedatabase.app"
+        };
+        firebase.initializeApp(firebaseConfig);
+        const db = firebase.database();
+
+        // 2. Elemen DOM
+        const display = document.getElementById('displayAntrean');
+        const btn = document.getElementById('btnAmbil');
+        const info = document.getElementById('infoAntrean');
+        
+        // Cek nomor yang sudah disimpan di HP ini
+        let myNumber = localStorage.getItem('kikoMyNumber');
+
+        // Selalu update tampilan nomor terakhir dari server
+        db.ref('lastNumber').on('value', (snapshot) => {
+            const serverNumber = snapshot.val() || 0;
+            if (!myNumber) {
+                display.innerText = serverNumber;
+            }
+        });
+
+        // Jika user sudah pernah ambil antrian sebelumnya
+        if (myNumber) {
+            display.innerText = myNumber;
+            info.innerText = "Nomor Antrian Anda: " + myNumber;
+            btn.innerText = "BERHASIL DI AMBIL";
+            btn.disabled = true;
+        }
+
+        // Fungsi klik ambil antrian (Berurutan Global)
+        function ambilAntrean() {
+            db.ref('lastNumber').transaction((currentValue) => {
+                return (currentValue || 0) + 1;
+            }, (error, committed, snapshot) => {
+                if (committed) {
+                    const newNumber = snapshot.val();
+                    localStorage.setItem('kikoMyNumber', newNumber);
+                    myNumber = newNumber;
+
+                    display.innerText = newNumber;
+                    info.innerText = "Nomor Antrian Anda: " + newNumber;
+                    btn.innerText = "BERHASIL DI AMBIL";
+                    btn.disabled = true;
+                    document.getElementById('infoWaktu').innerText = "Diambil pada: " + new Date().toLocaleTimeString();
+                    
+                    alert("Berhasil! Nomor antrian Anda adalah: " + newNumber);
+                }
+            });
+        }
+
+        // Fungsi reset (Jika user ingin hapus nomor di HP-nya saja)
+        function resetAntrean() {
+            if(confirm("Apakah Anda ingin mereset nomor antrean di perangkat ini?")) {
+                localStorage.removeItem('kikoMyNumber');
+                location.reload();
+            }
+        }
+
+        // Fungsi WhatsApp Otomatis
+        function orderWA() {
+            const noWA = "6282230412413";
+            const antrean = localStorage.getItem('kikoMyNumber') || "Belum Ambil Nomor";
+            const pesan = `Halo Kiko Joki,%0A%0ASaya ingin order joki.%0ANomor Antrian saya: *${antrean}*%0A%0ASaya ingin memesan layanan: `;
+            window.open(`https://wa.me/${noWA}?text=${pesan}`, '_blank');
+        }
+    </script>
     <script src="script.js"></script>
 </body>
 </html>
