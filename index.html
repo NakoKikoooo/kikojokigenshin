@@ -6,7 +6,7 @@
     <title>KIKO JOKI GENSHIN | Tingkatkan Akun Anda</title>
     <link rel="stylesheet" href="styles.css"> 
     <style>
-        /* Tambahan CSS agar fitur Antrean menyatu dengan desain Anda */
+        /* CSS untuk mendukung fitur klik harga */
         .antrean-section {
             background: #fff;
             padding: 30px;
@@ -16,43 +16,31 @@
             border: 2px solid #7289da;
             box-shadow: 0 8px 20px rgba(0,0,0,0.1);
         }
-        .nomor-box {
-            font-size: 4.5rem;
-            font-weight: bold;
-            color: #e74c3c;
-            margin: 15px 0;
-            line-height: 1;
-        }
+        .nomor-box { font-size: 4.5rem; font-weight: bold; color: #e74c3c; margin: 15px 0; line-height: 1; }
         .btn-antri {
-            background-color: #25d366;
-            color: white;
-            border: none;
-            padding: 15px 30px;
-            font-size: 1.2rem;
+            background-color: #25d366; color: white; border: none; padding: 15px 30px;
+            font-size: 1.2rem; border-radius: 10px; cursor: pointer; font-weight: bold; width: 100%; max-width: 320px;
+        }
+        .btn-antri:disabled { background-color: #bdc3c7 !important; cursor: not-allowed; }
+        
+        /* Gaya Tabel Harga yang akan muncul */
+        .harga-layanan-detail {
+            display: none; /* Tersembunyi secara default */
+            margin-top: 15px;
+            background: #f9f9f9;
+            padding: 15px;
             border-radius: 10px;
-            cursor: pointer;
-            font-weight: bold;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-            width: 100%;
-            max-width: 320px;
+            border: 1px solid #ddd;
         }
-        .btn-antri:disabled {
-            background-color: #bdc3c7 !important;
-            transform: none !important;
-            cursor: not-allowed;
-            box-shadow: none;
+        .harga-table-detail { width: 100%; border-collapse: collapse; margin-top: 10px; }
+        .harga-table-detail th, .harga-table-detail td {
+            border: 1px solid #ddd; padding: 10px; text-align: left; font-size: 0.9rem;
         }
-        .btn-antri:hover:not(:disabled) {
-            background-color: #1ebd5b;
-            transform: translateY(-3px);
-            box-shadow: 0 6px 12px rgba(0,0,0,0.2);
-        }
-        .note-spam {
-            font-size: 0.8rem;
-            color: #7f8c8d;
-            margin-top: 10px;
-        }
+        .harga-table-detail th { background-color: #7289da; color: white; }
+        
+        .service-item { cursor: pointer; transition: transform 0.2s; }
+        .service-item:hover { transform: scale(1.02); }
+        .highlighted { border: 2px solid #25d366; border-radius: 10px; }
         .gratis-text { color: #e74c3c; font-weight: bold; }
     </style>
 </head>
@@ -70,35 +58,21 @@
         </div>
     </header>
 
-    <div class="hero-banner">
-        <div class="container">
-            <div class="hero-content">
-                <p class="tagline">Jasa Joki Terbaik dan Terpercaya</p>
-                <h1>Tingkatkan Akun Anda Sekarang!</h1>
-                <p>Cepat, Aman, dengan Harga Terjangkau untuk semua kebutuhan Anda.</p>
-            </div>
-        </div>
-    </div>
-
     <div class="container"> 
-        
         <section id="antrean" class="antrean-section">
             <h2>Sistem Antrian Joki <span class="gratis-text">Gratis</span></h2>
             <p id="labelStatus">Nomor Antrian Terakhir Saat Ini:</p>
             <div class="nomor-box" id="displayAntrean">--</div>
-            
             <button class="btn-antri" id="btnAmbil" onclick="ambilAntrean()">AMBIL NOMOR ANTRIAN</button>
-            
             <p id="infoAntrean" style="margin-top:15px; font-weight:bold; color:#2c3e50;"></p>
-            <p id="infoWaktu" style="font-size: 0.85rem; color: #7f8c8d; margin-top: 5px;"></p>
-            <p class="note-spam">*Satu perangkat hanya diizinkan mengambil 1 nomor antrean.</p>
+            <p id="infoWaktu" style="font-size: 0.85rem; color: #7f8c8d;"></p>
         </section>
 
         <section id="layanan-harga">
             <h2>Layanan Kami (Klik Ikon untuk Lihat Harga)</h2>
             
             <div class="service-list">
-                <div class="service-item-wrapper" id="wrapper-spyrall">
+                <div class="service-item-wrapper">
                     <div class="service-item" data-service-id="spyrall">
                         <img src="amber-icon.png" alt="Ikon Amber" class="service-icon">
                         <div>
@@ -106,88 +80,122 @@
                             <p>Penyelesaian Full Star atau sesuai permintaan.</p>
                         </div>
                     </div>
+                    <div class="harga-layanan-detail" id="harga-spyrall">
+                        <table class="harga-table-detail">
+                            <thead><tr><th>Layanan</th><th>Deskripsi</th><th>Harga</th></tr></thead>
+                            <tbody class="harga-body-detail"></tbody>
+                        </table>
+                    </div>
                 </div>
-                
-                <div class="service-item-wrapper" id="wrapper-eksplorasi">
+
+                <div class="service-item-wrapper">
                     <div class="service-item" data-service-id="eksplorasi">
                         <img src="ganyu-icon.png" alt="Ikon Ganyu" class="service-icon">
                         <div>
                             <h3>Joki Eksplorasi Map</h3>
-                            <p>Ambil semua Chest & Seelie di area baru dan selesaikan puzzle.</p>
+                            <p>Eksplorasi wilayah Mondstad hingga Natlan.</p>
                         </div>
                     </div>
+                    <div class="harga-layanan-detail" id="harga-eksplorasi">
+                        <table class="harga-table-detail">
+                            <thead><tr><th>Layanan</th><th>Deskripsi</th><th>Harga</th></tr></thead>
+                            <tbody class="harga-body-detail"></tbody>
+                        </table>
+                    </div>
                 </div>
-                
-                <div class="service-item-wrapper" id="wrapper-daily">
+
+                <div class="service-item-wrapper">
                     <div class="service-item" data-service-id="daily">
                         <img src="xiao-icon.png" alt="Ikon Xiao" class="service-icon">
                         <div>
                             <h3>Joki Daily Commision Harian</h3>
-                            <p>Penyelesaian tugas Komisi Harian untuk mendapatkan Primogem.</p>
+                            <p>Rawat akun harian, mingguan, atau bulanan.</p>
                         </div>
+                    </div>
+                    <div class="harga-layanan-detail" id="harga-daily">
+                        <table class="harga-table-detail">
+                            <thead><tr><th>Layanan</th><th>Deskripsi</th><th>Harga</th></tr></thead>
+                            <tbody class="harga-body-detail"></tbody>
+                        </table>
                     </div>
                 </div>
 
-                <div class="service-item-wrapper" id="wrapper-jokiquest">
+                <div class="service-item-wrapper">
                     <div class="service-item" data-service-id="jokiquest">
                         <img src="hutao-icon.png" alt="Ikon Hu Tao" class="service-icon">
                         <div>
                             <h3>Joki Quest (Story/Event)</h3>
-                            <p>Pengerjaan Archon Quest, World Quest, dan Event terbatas.</p>
+                            <p>Archon Quest, World Quest, dan Event Terbatas.</p>
                         </div>
                     </div>
+                    <div class="harga-layanan-detail" id="harga-jokiquest">
+                        <table class="harga-table-detail">
+                            <thead><tr><th>Layanan</th><th>Deskripsi</th><th>Harga</th></tr></thead>
+                            <tbody class="harga-body-detail"></tbody>
+                        </table>
+                    </div>
                 </div>
-                
-                <div class="service-item-wrapper" id="wrapper-farming">
+
+                <div class="service-item-wrapper">
                     <div class="service-item" data-service-id="farming">
                         <img src="aether-icon.png" alt="Ikon Aether" class="service-icon">
                         <div>
                             <h3>Joki Farming Material</h3>
-                            <p>Farming material Ascension karakter, senjata, atau artefak.</p>
+                            <p>Farming material karakter, bebatuan, dan memancing.</p>
                         </div>
+                    </div>
+                    <div class="harga-layanan-detail" id="harga-farming">
+                        <table class="harga-table-detail">
+                            <thead><tr><th>Layanan</th><th>Deskripsi</th><th>Harga</th></tr></thead>
+                            <tbody class="harga-body-detail"></tbody>
+                        </table>
                     </div>
                 </div>
             </div>
             
-            <p style="text-align: center; margin-top: 20px; color: #e74c3c; font-weight: 600;">*Harga dapat disesuaikan tergantung kompleksitas dan *progress* akun Anda.</p>
-
-            <section id="kontak">
-                <h2>Anda bisa menghubungi saya untuk order jokian</h2>
-                <p>© 2025 KIKO JOKI GENSHIN. Layanan Joki Terpercaya.</p>
-                <p>
-                    Hubungi saya: 
-                    <button onclick="orderWA()" style="background: #25d366; color: white; border: none; padding: 10px 15px; border-radius: 5px; cursor: pointer; font-weight: bold; font-size: 1rem;">WhatsApp</button> | 
-                    <a href="https://discord.gg/4Cd8QhuYXH" target="_blank" style="color: #7289da; font-weight: bold; text-decoration: none;">Discord</a>
-                </p>
+            <section id="kontak" style="margin-top: 50px; background: #f0f2f5; padding: 20px; border-radius: 15px;">
+                <h3>Form Pemesanan</h3>
+                <form id="joki-form">
+                    <input type="text" id="nama" placeholder="Nama Lengkap" required style="width: 90%; padding: 10px; margin-bottom: 10px;">
+                    <div style="margin-bottom: 10px;">
+                        <label><input type="radio" name="metode_kontak" value="whatsapp" checked> WhatsApp</label>
+                        <label><input type="radio" name="metode_kontak" value="discord"> Discord</label>
+                    </div>
+                    <div id="input-wa"><input type="text" id="whatsapp" placeholder="Nomor WhatsApp" style="width: 90%; padding: 10px; margin-bottom: 10px;"></div>
+                    <div id="input-discord" style="display:none;"><input type="text" id="discord" placeholder="Username Discord" style="width: 90%; padding: 10px; margin-bottom: 10px;"></div>
+                    
+                    <select id="server" style="width: 95%; padding: 10px; margin-bottom: 10px;">
+                        <option value="Asia">Asia</option>
+                        <option value="America">America</option>
+                        <option value="Europe">Europe</option>
+                    </select>
+                    <input type="text" id="layanan-jasa" placeholder="Layanan yang dipilih" required style="width: 90%; padding: 10px; margin-bottom: 10px;">
+                    <textarea id="catatan" placeholder="Catatan tambahan (Spek akun, dll)" style="width: 90%; padding: 10px; margin-bottom: 10px;"></textarea>
+                    <button type="submit" class="btn-antri" style="background: #7289da;">KIRIM PESANAN</button>
+                </form>
             </section>
         </section> 
     </div>
 
-    <footer>
-        <p>Terima kasih telah menggunakan jasa kami. Kami akan segera memproses pesanan Anda!</p>
-    </footer>
-
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
+    <script src="script.js"></script>
 
     <script>
-        // 1. Konfigurasi Database (Sudah terhubung ke server)
-        const firebaseConfig = {
-            databaseURL: "https://kiko-joki-default-rtdb.asia-southeast1.firebasedatabase.app"
-        };
+        // Logika Antrean (Firebase)
+        const firebaseConfig = { databaseURL: "https://kiko-joki-default-rtdb.asia-southeast1.firebasedatabase.app" };
         firebase.initializeApp(firebaseConfig);
         const db = firebase.database();
 
-        // 2. Variabel Elemen
-        const display = document.getElementById('displayAntrean');
-        const btn = document.getElementById('btnAmbil');
-        const info = document.getElementById('infoAntrean');
-        const infoWaktu = document.getElementById('infoWaktu');
-        const labelStatus = document.getElementById('labelStatus');
-
-        // Cek apakah user sudah punya nomor di perangkat ini
-        let myNumber = localStorage.getItem('kikoMyNumber');
-
-        // Selalu pantau nomor terakhir dari server secara global
-        db.ref('lastNumber').on('value', (snapshot) => {
-            const serverNumber =
+        function ambilAntrean() {
+            if (localStorage.getItem('kikoMyNumber')) return alert("Anda sudah punya nomor!");
+            db.ref('lastNumber').transaction(c => (c || 0) + 1, (err, comm, snap) => {
+                if (comm) {
+                    localStorage.setItem('kikoMyNumber', snap.val());
+                    location.reload();
+                }
+            });
+        }
+    </script>
+</body>
+</html>
